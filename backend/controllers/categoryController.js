@@ -1,6 +1,6 @@
 const { Category } = require('../models');
 
-export const CreateCategory = async (req, res) => {
+const CreateCategory = async (req, res) => {
     const { categoryId, name } = req.body;
 
     try {
@@ -14,3 +14,5 @@ export const CreateCategory = async (req, res) => {
         res.status(500).send('Internal server error.')
     }
 };
+
+module.exports = { CreateCategory };
