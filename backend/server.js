@@ -1,8 +1,12 @@
 require('dotenv').config();
-const { sequelize } = require('./models/index.js');
+const { sequelize } = require('./models/index');
 
 const express = require('express');
 const cors = require('cors');
+
+const PORT = process.env.PORT || 3000;
+
+const routes = require('./routes/index');
 
 const app = express();
 
@@ -15,6 +19,8 @@ app.get('/', (req, res) => {
     });
 });
 
+app.use('/api', routes);
+
 (async () => {
     try {
         await sequelize.authenticate();
@@ -23,9 +29,6 @@ app.get('/', (req, res) => {
         console.error('Unable to connect to the database:', error);
     }
 })();
-
-const PORT = process.env.PORT || 3000;
-
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
